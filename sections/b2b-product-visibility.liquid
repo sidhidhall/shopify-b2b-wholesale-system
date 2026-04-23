@@ -1,0 +1,15 @@
+{% comment %}
+Hide wholesale-only products from retail users
+{% endcomment %}
+
+{% assign show_product = true %}
+
+{% if product.tags contains 'wholesale-only' %}
+  {% unless customer and customer.tags contains 'wholesale' %}
+    {% assign show_product = false %}
+  {% endunless %}
+{% endif %}
+
+{% if show_product %}
+  <!-- Product card rendering -->
+{% endif %}

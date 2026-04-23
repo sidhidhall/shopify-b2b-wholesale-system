@@ -1,0 +1,22 @@
+{% comment %}
+Dynamic pricing based on customer tags
+Used in production for B2B stores
+{% endcomment %}
+
+{% assign is_wholesale = false %}
+
+{% if customer %}
+  {% if customer.tags contains 'wholesale' %}
+    {% assign is_wholesale = true %}
+  {% endif %}
+{% endif %}
+
+{% if is_wholesale %}
+  <span class="price wholesale-price">
+    {{ product.compare_at_price | money }}
+  </span>
+{% else %}
+  <span class="price retail-price">
+    {{ product.price | money }}
+  </span>
+{% endif %}
